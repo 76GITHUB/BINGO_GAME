@@ -7,6 +7,21 @@ enum AI_MODE {
 	AI_HARD
 };
 
+enum LN {
+	LG_1,
+	LG_2,
+	LG_3,
+	LG_4,
+	LG_5,
+	LS_1,
+	LS_2,
+	LS_3,
+	LS_4,
+	LS_5,
+	LDL,
+	LDR
+};
+
 
 int main() {
 	srand((unsigned int)time(NULL));
@@ -158,6 +173,97 @@ int main() {
 			
 
 		case AI_HARD:
+			int starc = 0, savec = 0;
+			int line = 0;
+
+			for (int i = 0; i < 5; i++) {
+				starc = 0;
+				for (int j = 0; j < 5; j++) {
+					if (an[i * 5 + j] == INT_MAX)
+						++starc;
+				}
+				if (starc < 5 || savec < starc)
+				savec = starc;
+				line = i; //현재 가로줄중에서 별이 가장 많은곳의 가로라인번호를 저장
+			}
+
+			for (int i = 0; i < 5; i++) {
+				starc = 0;
+				for (int j = 0; j < 5; j++) {
+					if (an[j * 5 + i] == INT_MAX)
+						++starc;
+				}
+				if (starc < 5 || savec < starc)
+					savec = starc;
+				    line = i+5; //현재 세로줄중에서 별이 가장 많은곳의 가로라인번호를 저장
+			}
+			
+			starc = 0;
+			for (int i = 0; i < 25; i += 6) {
+				if (an[i] == INT_MAX)
+					++starc;
+			}
+			
+			if (starc < 5 || savec < starc) {
+				savec = starc;
+				line = LDL; //↘방향번호를 저장
+			}
+
+		starc = 0;
+		for (int i = 4; i < 21; i += 4) {
+			if (an[i] == INT_MAX)
+				++starc;
+		}
+
+		if (starc < 5 || savec < starc){
+			savec = starc;
+		line = LDR; //↙방향 번호를 저장
+		}
+
+		if (line <= LG_5) {
+			for (int i = 0; i < 5; i++) {
+				if (an[line * 5 + i] != INT_MAX) {
+					aInput = an[line * 5 + i];
+					break;
+				}
+					
+			}
+		}
+
+		if (line > LG_5&&line<=LS_5) {
+			for (int i = 0; i < 5; i++) {
+				if (an[i * 5 + line] != INT_MAX) {
+					aInput = an[i * 5 + line];
+					break;
+				}
+
+			}
+		}
+
+		if (line==LDL) {
+			for (int i = 0; i < 25; i+=6) {
+				if (an[i] != INT_MAX) {
+					aInput = an[i];
+					break;
+				}
+
+			}
+		}
+
+		if (line == LDR) {
+			for (int i = 4; i < 21; i += 4) {
+				if (an[i] != INT_MAX) {
+					aInput = an[i];
+					break;
+				}
+
+			}
+		}
+
+
+
+
+
 			break;
 		}
 
