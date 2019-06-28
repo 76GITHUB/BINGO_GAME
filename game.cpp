@@ -155,16 +155,17 @@ int main() {
 		if (jungbok)
 			continue;
 
-		int aInput;
+		int aInput=0;
 
 		switch (mode)
 		{
 		case AI_EASY:
 			noneselect = 0;
 			for (int i = 0; i < 25; i++) {
-				if (an[i] != INT_MAX)
+				if (an[i] != INT_MAX) {
 					none[noneselect] = an[i];
-				++noneselect;
+					++noneselect;
+				}
 			}
 
 			aInput = none[rand() % noneselect];
@@ -193,9 +194,10 @@ int main() {
 					if (an[j * 5 + i] == INT_MAX)
 						++starc;
 				}
-				if (starc < 5 || savec < starc)
+				if (starc < 5 || savec < starc) {
 					savec = starc;
-				    line = i+5; //현재 세로줄중에서 별이 가장 많은곳의 가로라인번호를 저장
+					line = i + 5; //현재 세로줄중에서 별이 가장 많은곳의 가로라인번호를 저장
+				}
 			}
 			
 			starc = 0;
@@ -269,8 +271,6 @@ int main() {
 
 		for (int i = 0; i < 25; i++) { //입력한값을찾아서 유저쪽에 INT_MAX대입
 			if (pn[i] == aInput) {
-				jungbok = false;
-
 				pn[i] = INT_MAX;
 				break;
 			}
@@ -278,8 +278,6 @@ int main() {
 
 		for (int i = 0; i < 25; i++) { //입력한값을찾아서 AI쪽에 INT_MAX대입
 			if (an[i] == aInput) {
-				jungbok = false;
-
 				an[i] = INT_MAX;
 				break;
 			}
